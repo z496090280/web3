@@ -7,7 +7,7 @@ const MENU_TREE: Array<IMenu> = [
   {
     title: "钱包",
     path: "/wallet",
-    desc: "使用 ethers.js 连接 Metamask，实现了连接、断开、查询余额、刷新余额、转账等加密钱包的极简功能。麻雀虽小，五脏俱全。适合初学者学习。",
+    desc: "使用 ethers.js 连接 Metamask，实现了连接、断开、查询余额、刷新余额、转账等加密钱包的极简功能。麻雀虽小，五脏俱全。",
   },
   {
     title: "空投DApp",

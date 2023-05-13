@@ -1,9 +1,8 @@
 /*
  * @Author: lee
  * @Date: 2023-05-08 15:17:37
- * @LastEditTime: 2023-05-13 18:48:09
+ * @LastEditTime: 2023-05-13 18:55:28
  */
-import Wallet from "@/components/Wallet";
 import Router from "next/router";
 import styles from "./index.module.scss";
 import MENU_TREE, { IMenu } from "@/utils/menu";
