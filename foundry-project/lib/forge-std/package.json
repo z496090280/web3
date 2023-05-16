@@ -1,0 +1,11 @@
+{
+  "name": "forge-std",
+  "version": "1.5.5",
+  "description": "Forge Standard Library is a collection of helpful contracts and libraries for use with Forge and Foundry.",
+  "homepage": "https://book.getfoundry.sh/forge/forge-std",
+  "license": "(Apache-2.0 OR MIT)",
+  "author": "Contributors to Forge Standard Library",
+  "files": [
+    "src/**/*"
+  ]
+}
