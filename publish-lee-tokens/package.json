@@ -1,6 +1,9 @@
 {
 	"dependencies": {
 		"@openzeppelin/contracts": "^4.8.3",
+		"@truffle/hdwallet-provider": "^2.1.11",
+		"core-js": "^3.30.2",
+		"dotenv": "^16.0.3",
 		"openzeppelin-solidity": "^3.4.2"
 	}
 }
