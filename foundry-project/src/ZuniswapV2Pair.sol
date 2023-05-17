@@ -12,7 +12,10 @@ interface IERC20 {
 
 error InsufficientLiquidityMinted();
 error InsufficientLiquidityBurned();
+error InsufficientOutoutAmount();
+error InsufficientLiquidity();
 error TransferFailed();
+error InvalidK();
 
 contract ZuniswapV2Pair is ERC20 {
     uint256 constant MINIMUM_LIQUIDITY = 1000;
@@ -25,6 +28,7 @@ contract ZuniswapV2Pair is ERC20 {
     event Burn(address indexed sender, uint256 amount0, uint256 amount1);
     event Mint(address indexed sender, uint256 amount0, uint256 amount1);
     event Sync(uint256 reserve0, uint256 reserve1);
+    event Swap(address indexed sender, uint256 amount0Out,uint256 amount1Out, address indexed to);
 
     constructor(address token0_, address token1_)
         ERC20("ZuniswapV2 Pair", "ZUNIV2", 18)
@@ -33,6 +37,7 @@ contract ZuniswapV2Pair is ERC20 {
         token1 = token1_;
     }
 
+    // 添加流动性
     function mint() public {
         (uint112 _reserve0, uint112 _reserve1) = getReserves();
         uint256 balance0 = IERC20(token0).balanceOf(address(this));
@@ -60,6 +65,63 @@ contract ZuniswapV2Pair is ERC20 {
         _update(balance0, balance1);
 
         emit Mint(msg.sender, amount0, amount1);
+    }
+
+    // 移除流动性
+    function burn(address to)
+        public
+        returns (uint256 amount0, uint256 amount1)
+    {
+        uint256 balance0 = IERC20(token0).balanceOf(address(this));
+        uint256 balance1 = IERC20(token1).balanceOf(address(this));
+
+        uint256 liquidity = balanceOf[address(this)];
+        amount0 = (liquidity * balance0) / totalSupply;
+        amount1 = (liquidity * balance1) / totalSupply;
+
+        _burn(address(this), liquidity);
+        _safeTransfer(token0, to, amount0);
+        _safeTransfer(token1, to, amount1);
+
+        balance0 = IERC20(token0).balanceOf(address(this));
+        balance1 = IERC20(token1).balanceOf(address(this));
+        _update(balance0, balance1);
+
+        emit Burn(msg.sender, amount0, amount1);
+    }
+
+    function swap(uint256 amount0Out, uint256 amount1Out, address to) public {
+      if(amount0Out == 0 && amount1Out == 0) {
+        revers InsufficientOutoutAmount();
+      }
+      (uint112 reserve0_, uint112 reserve1_) = getReserves();
+      if(amount0Out > reserve0_ || amount1Out > reserve1_) {
+        revers InsufficientLiquidity();
+      }
+
+      uint256 balance0 = IERC20(token0).balanceOf(address(this)) -amount0Out;
+      uint256 balance1 = IERC20(token1).balanceOf(address(this)) - amount1Out;
+
+      if(balance0 * balance1 < uint256(reserve0_) * uint256(reserve1_)) {
+        revert InvalidK();
+      }
+      _update(balance0, balance1);
+      if(amount0Out > 0) _safeTransfer(token0, to, amount0Out);
+      if(amount1Out > 0) _safeTransfer(token0, to, amount1Out);
+      emit Swap(msg.sender, amount0Out, amount1Out, to);
+    }
+
+    function _safeTransfer(
+        address token,
+        address to,
+        uint256 value
+    ) private {
+        (bool success, bytes memory data) = token.call(
+            abi.encodeWithSignature("transfer(address,uint256)", to, value)
+        );
+        if (!success || (data.length != 0 && !abi.decode(data, (bool)))) {
+            revert TransferFailed();
+        }
     }
 
     function getReserves() public view returns (uint112, uint112) {
