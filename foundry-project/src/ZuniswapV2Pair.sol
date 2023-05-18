@@ -48,7 +48,7 @@ contract ZuniswapV2Pair is ERC20 {
 
     function initialize(address token0_, address token1_) public {
         require(
-            token0 == address(0) || token1 == address(1),
+            token0 == address(0) || token1 == address(0),
             "already initialized"
         );
         token0 = token0_;
