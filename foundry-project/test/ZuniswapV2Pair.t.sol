@@ -23,7 +23,8 @@ contract ZuniswapV2PairTest is Test {
     function setUp() public {
         token0 = new ERC20Mintable("TokenA", "TKNA");
         token1 = new ERC20Mintable("TokenB", "TKNB");
-        pair = new ZuniswapV2Pair(address(token0), address(token1));
+        pair = new ZuniswapV2Pair();
+        pair.initialize(address(token0), address(token1));
 
         token0.mint(10 ether);
         token1.mint(10 ether);
