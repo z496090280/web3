@@ -1,7 +1,7 @@
 /*
  * @Author: lee
  * @Date: 2023-05-27 17:32:19
- * @LastEditTime: 2023-05-28 14:32:18
+ * @LastEditTime: 2023-05-30 15:51:23
  */
 export default [
   {
@@ -23,6 +23,19 @@ export default [
     type: "constructor",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    name: "addCandidate",
+    type: "event",
+  },
+  {
     inputs: [
       {
         internalType: "string",
@@ -34,6 +47,19 @@ export default [
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    name: "voteStatus",
+    type: "event",
   },
   {
     inputs: [
@@ -49,6 +75,25 @@ export default [
         internalType: "string",
         name: "",
         type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string[]",
+        name: "_arr",
+        type: "string[]",
+      },
+    ],
+    name: "getMapValueToArray",
+    outputs: [
+      {
+        internalType: "uint8[]",
+        name: "",
+        type: "uint8[]",
       },
     ],
     stateMutability: "view",
