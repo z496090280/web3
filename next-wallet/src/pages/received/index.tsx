@@ -1,7 +1,7 @@
 /*
  * @Author: lee
  * @Date: 2023-05-08 15:19:56
- * @LastEditTime: 2023-05-30 20:03:28
+ * @LastEditTime: 2023-05-30 20:32:54
  */
 import { Select, Space, notification } from "antd";
 import { useEffect, useState } from "react";
@@ -119,12 +119,10 @@ function DappVote() {
         <tbody>
           {selected.map((item) => {
             return (
-              <>
-                <tr key={item.id}>
-                  <td className="border border-slate-300 ">{item.label}</td>
-                  <td className="border border-slate-300 ">{item.value}</td>
-                </tr>
-              </>
+              <tr key={item.id}>
+                <td className="border border-slate-300 ">{item.label}</td>
+                <td className="border border-slate-300 ">{item.value}</td>
+              </tr>
             );
           })}
         </tbody>
@@ -133,7 +131,9 @@ function DappVote() {
       <div>
         <select onChange={handleChange}>
           {selected.map((item) => (
-            <option value={item.label}>{item.label}</option>
+            <option key={item.label} value={item.label}>
+              {item.label}
+            </option>
           ))}
         </select>
         {useAddress ? (
@@ -150,12 +150,13 @@ function DappVote() {
         )}
         <button
           onClick={touppiao}
-          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          style={{ marginTop: "16px" }}
+          className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           投票
         </button>
         <button onClick={init}>查看候选人票数</button>
-        <button onClick={() => console.log(selected)}>test</button>
+        {/* <button onClick={() => console.log(selected)}>test</button> */}
       </div>
     </div>
   );

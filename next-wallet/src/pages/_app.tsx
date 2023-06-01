@@ -1,15 +1,13 @@
 /*
  * @Author: lee
  * @Date: 2023-05-28 19:43:26
- * @LastEditTime: 2023-05-29 14:21:13
+ * @LastEditTime: 2023-05-30 21:06:38
  */
-import "@/assets/styles/global.css"
-import React,{ useState } from "react";
+import "@/assets/styles/global.css";
+import React, { useState } from "react";
 export default function App({ Component, pageProps }: any) {
   return <Component {...pageProps} />;
 }
-
-
 
 // import "@/assets/styles/global.css";
 // import { WagmiConfig, createConfig, configureChains, mainnet } from "wagmi";

@@ -1,51 +1,72 @@
 /*
  * @Author: lee
  * @Date: 2023-05-29 15:25:10
- * @LastEditTime: 2023-05-29 15:26:19
+ * @LastEditTime: 2023-05-30 22:11:49
  */
-import { Disclosure } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/20/solid";
+
+import { ethers } from "ethers";
+import { useEffect, useState } from "react";
+import TestABI from "@/abi/Test";
 
 export default function Example() {
+  const [walletProvider, setWalletProvider] = useState<any>(null);
+  const [account, setAccount] = useState("");
+  const [contract, setContract] = useState<any>(null);
+  useEffect(() => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    setWalletProvider(provider);
+    const Contract = new ethers.Contract(
+      "0xF19ECd3CA474D8e0eB271E2baA24e43d12Fc4507",
+      TestABI,
+      provider.getSigner()
+    );
+    setContract(Contract);
+    Contract.on("Fn1", function (err, result) {
+      console.log("Fn1: " + err, result);
+    });
+    Contract.on("Fn2", function (err, result) {
+      console.log("Fn2: " + err, result);
+    });
+
+    return () => {
+      // 删除监听操作
+      Contract.removeAllListeners();
+    };
+  }, [account]);
+
+  async function connectWallet() {
+    const [result] = await walletProvider.send("eth_requestAccounts", []);
+    setAccount(result);
+  }
+
+  async function setMap() {
+    const tx = await contract.fn1("alax2", 22);
+    const res = await tx.wait();
+    console.log(res);
+  }
+
+  async function setName() {
+    const tx = await contract.fn2("chenren2");
+    const res = await tx.wait();
+    console.log(res);
+  }
   return (
     <div className="w-full px-4 pt-16">
-      <div className="mx-auto w-full max-w-md rounded-2xl bg-white p-2">
-        <Disclosure>
-          {({ open }) => (
-            <>
-              <Disclosure.Button className="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                <span>What is your refund policy?</span>
-                <ChevronUpIcon
-                  className={`${
-                    open ? "rotate-180 transform" : ""
-                  } h-5 w-5 text-purple-500`}
-                />
-              </Disclosure.Button>
-              <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                If you're unhappy with your purchase for any reason, email us
-                within 90 days and we'll refund you in full, no questions asked.
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure>
-        <Disclosure as="div" className="mt-2">
-          {({ open }) => (
-            <>
-              <Disclosure.Button className="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                <span>Do you offer technical support?</span>
-                <ChevronUpIcon
-                  className={`${
-                    open ? "rotate-180 transform" : ""
-                  } h-5 w-5 text-purple-500`}
-                />
-              </Disclosure.Button>
-              <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                No.
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure>
-      </div>
+      {account ? (
+        <>当前：{account}</>
+      ) : (
+        <button onClick={connectWallet}>链接钱包</button>
+      )}
+      <br />
+      <button onClick={setMap}>设置mapping</button>
+      <p>mapping event:</p>
+      <br />
+      <button onClick={setName}>设置name</button>
+      <p>name event:</p>
+      <br />
+      <button>查看name</button>
+      <p>合约当前name:</p>
+      <br />
     </div>
   );
 }
