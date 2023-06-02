@@ -1,9 +1,9 @@
 /*
  * @Author: lee
  * @Date: 2023-05-22 17:43:06
- * @LastEditTime: 2023-05-30 20:43:11
+ * @LastEditTime: 2023-06-02 11:07:32
  */
-export default [
+const abi = [
   {
     anonymous: false,
     inputs: [
@@ -107,3 +107,5 @@ export default [
     type: "function",
   },
 ];
+
+export default abi;

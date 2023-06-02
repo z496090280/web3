@@ -1,9 +1,9 @@
 /*
  * @Author: lee
  * @Date: 2023-05-22 17:43:06
- * @LastEditTime: 2023-05-27 17:33:56
+ * @LastEditTime: 2023-06-02 11:06:12
  */
-export default [
+const abi = [
   {
     inputs: [],
     stateMutability: "nonpayable",
@@ -385,3 +385,4 @@ export default [
     type: "function",
   },
 ];
+export default abi;

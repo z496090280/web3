@@ -3,7 +3,7 @@
  * @Date: 2023-05-27 17:32:19
  * @LastEditTime: 2023-05-30 15:51:23
  */
-export default [
+const abi = [
   {
     inputs: [
       {
@@ -119,3 +119,5 @@ export default [
     type: "function",
   },
 ];
+
+export default abi;
