@@ -8,7 +8,7 @@ import { publicProvider } from "wagmi/providers/public";
 import Router from "next/router";
 import styles from "./index.module.scss";
 import MENU_TREE, { IMenu } from "@/utils/menu";
-import "@/app/globals.css";
+
 function App() {
   function handleClickItem(item: IMenu) {
     Router.push(item.path);

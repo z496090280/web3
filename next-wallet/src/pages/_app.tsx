@@ -1,7 +1,7 @@
 /*
  * @Author: lee
  * @Date: 2023-05-28 19:43:26
- * @LastEditTime: 2023-06-01 21:35:59
+ * @LastEditTime: 2023-06-02 11:43:34
  */
 import { WagmiConfig, mainnet, configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
@@ -10,6 +10,7 @@ import "@/assets/styles/global.css";
 import "tailwindcss/tailwind.css";
 import React, { useState } from "react";
 //rainbow kit UI framework.
+import "@/app/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
