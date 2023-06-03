@@ -1,7 +1,7 @@
 /*
  * @Author: lee
  * @Date: 2023-05-08 15:19:56
- * @LastEditTime: 2023-05-30 20:32:54
+ * @LastEditTime: 2023-06-02 21:49:04
  */
 import { Select, Space, notification } from "antd";
 import { useEffect, useState } from "react";
@@ -44,8 +44,8 @@ function DappVote() {
     }
   }
   const handleChange = (e: any) => {
-    console.log(e.target.value);
-    setcurrent(e.target.value);
+    // console.log(e);
+    setcurrent(e);
   };
   function utilsOne(arr: string[]) {
     const result = selected.map((item, idx) => {
@@ -129,13 +129,22 @@ function DappVote() {
       </table>
 
       <div>
-        <select onChange={handleChange}>
+        {/* <select onChange={handleChange}>
           {selected.map((item) => (
             <option key={item.label} value={item.label}>
               {item.label}
             </option>
           ))}
-        </select>
+        </select> */}
+        <Select style={{ width: 120 }} onChange={handleChange}>
+          {selected.map((item) => {
+            return (
+              <Option key={item.label} value={item.label}>
+                {item.label}
+              </Option>
+            );
+          })}
+        </Select>
         {useAddress ? (
           <>
             <p>用户：{useAddress}</p>
@@ -143,19 +152,27 @@ function DappVote() {
         ) : (
           <button
             onClick={connectWallet}
-            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex w-md justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             链接钱包
           </button>
         )}
-        <button
-          onClick={touppiao}
-          style={{ marginTop: "16px" }}
-          className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          投票
-        </button>
-        <button onClick={init}>查看候选人票数</button>
+        <div className="">
+          <button
+            onClick={touppiao}
+            style={{ marginTop: "16px" }}
+            disabled={!current}
+            className="flex w-md justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            投票
+          </button>
+          <button
+            className="flex w-md mt-2 justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={init}
+          >
+            查看候选人票数
+          </button>
+        </div>
         {/* <button onClick={() => console.log(selected)}>test</button> */}
       </div>
     </div>

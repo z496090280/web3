@@ -1,7 +1,7 @@
 /*
  * @Author: lee
  * @Date: 2023-05-13 17:24:05
- * @LastEditTime: 2023-06-01 21:51:50
+ * @LastEditTime: 2023-06-03 21:21:42
  */
 export interface IMenu {
   title: string;
@@ -38,6 +38,11 @@ const MENU_TREE: Array<IMenu> = [
     title: "web3钱包交互组件",
     path: "/walletUI",
     desc: "用next.js、wagmi、rainbowkit搭建一个美丽的web3钱包交互组件",
+  },
+  {
+    title: "Merkle Trees(默克尔树)",
+    path: "/merkle",
+    desc: "构建Merkle Trees，用js验证它",
   },
   {
     title: "example 展示",

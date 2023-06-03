@@ -1,7 +1,7 @@
 /*
  * @Author: lee
  * @Date: 2023-05-08 15:19:56
- * @LastEditTime: 2023-06-02 21:18:15
+ * @LastEditTime: 2023-06-02 21:33:00
  */
 import {
   useAccount,
@@ -113,6 +113,7 @@ function AirDrop() {
               type="primary"
               className="bg-blue-500"
               onClick={handleAirDorp}
+              disabled={!value}
             >
               确认空投
             </Button>
