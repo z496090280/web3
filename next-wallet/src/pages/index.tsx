@@ -1,12 +1,14 @@
 /*
  * @Author: lee
  * @Date: 2023-05-08 15:17:37
- * @LastEditTime: 2023-05-13 18:55:28
+ * @LastEditTime: 2023-06-02 00:05:57
  */
+import { WagmiConfig, createConfig, configureChains, mainnet } from "wagmi";
+import { publicProvider } from "wagmi/providers/public";
 import Router from "next/router";
 import styles from "./index.module.scss";
 import MENU_TREE, { IMenu } from "@/utils/menu";
-import "../app/globals.css";
+
 function App() {
   function handleClickItem(item: IMenu) {
     Router.push(item.path);
