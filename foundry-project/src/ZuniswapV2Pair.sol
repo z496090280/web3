@@ -56,7 +56,7 @@ contract ZuniswapV2Pair is ERC20 {
     }
 
     // 添加流动性
-    function mint() public {
+    function mint(address _to) public {
         (uint112 _reserve0, uint112 _reserve1) = getReserves();
         uint256 balance0 = IERC20(token0).balanceOf(address(this));
         uint256 balance1 = IERC20(token1).balanceOf(address(this));
@@ -78,11 +78,11 @@ contract ZuniswapV2Pair is ERC20 {
 
         if (liquidity <= 0) revert InsufficientLiquidityMinted();
 
-        _mint(msg.sender, liquidity);
+        _mint(_to, liquidity);
 
         _update(balance0, balance1, _reserve0, _reserve1);
 
-        emit Mint(msg.sender, amount0, amount1);
+        emit Mint(_to, amount0, amount1);
     }
 
     // 移除流动性

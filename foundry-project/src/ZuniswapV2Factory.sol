@@ -16,7 +16,7 @@ contract ZuniswapV2Factory {
         uint256
     );
 
-    mapping(address => mapping(address => address)) public getPair;
+    mapping(address => mapping(address => address)) public pairs;
     address[] public allPairs;
 
     // https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Factory.sol
@@ -29,10 +29,7 @@ contract ZuniswapV2Factory {
             ? (tokenA, tokenB)
             : (tokenB, tokenA);
         require(token0 != address(0), "UniswapV2: ZERO_ADDRESS");
-        require(
-            getPair[token0][token1] == address(0),
-            "UniswapV2: PAIR_EXISTS"
-        ); // single check is sufficient
+        require(pairs[token0][token1] == address(0), "UniswapV2: PAIR_EXISTS"); // single check is sufficient
 
         // 合约内部署合约
         bytes memory bytecode = type(ZuniswapV2Pair).creationCode;
@@ -42,8 +39,8 @@ contract ZuniswapV2Factory {
         }
 
         IZuniswapV2Pair(pair).initialize(token0, token1);
-        getPair[token0][token1] = pair;
-        getPair[token1][token0] = pair; // populate mapping in the reverse direction
+        pairs[token0][token1] = pair;
+        pairs[token1][token0] = pair; // populate mapping in the reverse direction
         allPairs.push(pair);
         emit PairCreated(token0, token1, pair, allPairs.length);
     }
