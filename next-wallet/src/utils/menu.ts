@@ -1,7 +1,7 @@
 /*
  * @Author: lee
  * @Date: 2023-05-13 17:24:05
- * @LastEditTime: 2023-06-03 21:21:42
+ * @LastEditTime: 2023-10-30 21:52:08
  */
 export interface IMenu {
   title: string;
@@ -43,6 +43,11 @@ const MENU_TREE: Array<IMenu> = [
     title: "Merkle Trees(默克尔树)",
     path: "/merkle",
     desc: "构建Merkle Trees，用js验证它",
+  },
+  {
+    title: "TradingView",
+    path: "/tradingView",
+    desc: "交易系统",
   },
   {
     title: "example 展示",
